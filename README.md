@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Projeto de Avaliação de Alunos
 
-## Getting Started
+Este projeto é um sistema web para gerenciar avaliações de alunos em diferentes disciplinas. O sistema oferece uma interface intuitiva para visualizar o desempenho dos alunos em diversos tipos de avaliações, como checkpoints, Global Solution e Challenge Sprints.
 
-First, run the development server:
+### 📚 Tecnologias e Ferramentas
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Next.js:** Framework React para desenvolvimento web moderno com SSR.
+- **React:** Biblioteca JavaScript para construção de interfaces de usuário.
+- **Tailwind CSS:** Framework CSS para estilização rápida e responsiva.
+- **TypeScript:** Suporte a tipos para código seguro e fácil de manter.
+- **Appwrite:** Back-end para gerenciamento de banco de dados e autenticação (opcional).
+- **Componentes Customizados:**
+  - **AlunoHeader:** Exibe informações do aluno (RM e turma).
+  - **DisciplinaFilter:** Componente para filtrar avaliações por disciplina.
+  - **PerformanceChart:** Gráfico de desempenho do aluno.
+  - **AvaliacaoList:** Lista as avaliações.
+  - **AvaliacaoForm:** Formulário para adicionar novas avaliações.
+  - **Spinner:** Feedback visual para carregamento de dados.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🚀 Funcionalidades
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Visualização de Desempenho:** Exibe o desempenho do aluno em diferentes tipos de avaliações.
+- **Filtragem por Disciplina:** Filtra avaliações por disciplina selecionada.
+- **Cadastro de Novas Avaliações:** Permite adicionar novas avaliações através de um formulário.
+- **Separação de Tipos de Avaliações:** Mostra avaliações separadas por tipo (checkpoints, Global Solution, Challenge Sprints).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 👥 Equipe de Desenvolvimento
 
-## Learn More
+- Kauã de Melo Rodrigues (RM: 555168)
+- Caike Dametto (RM: 558614)
+- Guilherme Janunzzi (RM: 558461)
+- Caio Cesar Rosa Nyimi (RM: 556331)
+- Nicolas Guinante Cavalcanti (RM: 557844)
 
-To learn more about Next.js, take a look at the following resources:
+### 📋 Pré-requisitos
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Node.js (versão 14 ou superior)
+- Yarn ou npm para gerenciamento de pacotes
+- Appwrite configurado (opcional, caso o projeto use integração com Appwrite).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 🛠️ Como Executar o Projeto
 
-## Deploy on Vercel
+1. **Clonar o repositório:**
+   ```bash
+   git clone https://github.com/seu-usuario/seu-repositorio.git
+   cd seu-repositorio
+   ```
+2. **Instalar dependências:**
+   ```bash
+   yarn install
+   # ou
+   npm install
+   ```
+3. **Configurar variáveis de ambiente:**
+   - Crie um arquivo `.env.local` na raiz do projeto.
+   - Adicione as variáveis de ambiente necessárias, incluindo as do Appwrite (se aplicável).
+4. **Iniciar o servidor de desenvolvimento:**
+   ```bash
+   yarn dev
+   # ou
+   npm run dev
+   ```
+5. **Acessar a aplicação:** Abra o navegador e acesse http://localhost:3000.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 📝 Estrutura de Código
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+O código é modularizado, utilizando componentes para facilitar a manutenção e escalabilidade.
+
+### 📈 Manipulação dos Dados
+
+As avaliações são manipuladas de acordo com seu tipo:
+
+- **Checkpoints:** Avaliações intermediárias.
+- **Global Solution:** Soluções completas para desafios globais.
+- **Challenge Sprints:** Sprints de desafio para desenvolvimento de habilidades específicas.
+
+### 📊 Visualização do Desempenho
+
+O componente `PerformanceChart` utiliza os dados das avaliações para criar um gráfico que representa o progresso do aluno em cada tipo de avaliação.
+
+##
+
+Este README fornece uma visão geral do projeto. Para informações mais detalhadas, consulte o código fonte e a documentação adicional.
