@@ -1,5 +1,7 @@
 ## Projeto de Avaliação de Alunos
 
+Deploy no vercel: https://portfolio-academico.vercel.app/
+
 Este projeto é um sistema web para gerenciar avaliações de alunos em diferentes disciplinas. O sistema oferece uma interface intuitiva para visualizar o desempenho dos alunos em diversos tipos de avaliações, como checkpoints, Global Solution e Challenge Sprints.
 
 ### 📚 Tecnologias e Ferramentas
