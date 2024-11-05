@@ -36,15 +36,28 @@ export default function PerfilAluno() {
   const [aluno, setAluno] = useState<Aluno | null>(null);
   const [avaliacoes, setAvaliacoes] = useState<Avaliacao[]>([]);
   const [selectedDisciplina, setSelectedDisciplina] = useState<string>("todas");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      const alunoData = await getAluno(rm);
-      setAluno(alunoData);
+      try {
+        const alunoData = await getAluno(rm);
 
-      const avaliacoesData = await getAvaliacoes(rm);
-      setAvaliacoes(avaliacoesData);
+        if (!alunoData) {
+          setError(true);
+        } else {
+          setAluno(alunoData);
+          const avaliacoesData = await getAvaliacoes(rm);
+          setAvaliacoes(avaliacoesData);
+        }
+      } catch (error) {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
     };
+
     fetchData();
   }, [rm]);
 
@@ -106,8 +119,19 @@ export default function PerfilAluno() {
     }
   };
 
-  if (!aluno) {
+  if (loading) {
     return <Spinner title="Carregando dados do aluno..." />;
+  }
+
+  if (error || !aluno) {
+    return (
+      <div className="container mx-auto px-4 py-8 flex flex-col items-center justify-center h-screen">
+        <h1 className="text-3xl font-bold text-red-500 mb-4">Aluno não encontrado</h1>
+        <p className="text-lg text-gray-700">
+          Verifique se o RM está correto ou tente novamente mais tarde.
+        </p>
+      </div>
+    );
   }
 
   return (
@@ -121,11 +145,31 @@ export default function PerfilAluno() {
       />
 
       <Tabs defaultValue="performance" className="space-y-4">
-        <TabsList>
-          <TabsTrigger value="performance">Desempenho</TabsTrigger>
-          <TabsTrigger value="checkpoints">CheckPoints</TabsTrigger>
-          <TabsTrigger value="globalsolution">Global Solution</TabsTrigger>
-          <TabsTrigger value="challengersprints">Challenge</TabsTrigger>
+        <TabsList className="sm:h-14 sm:w-fit w-full gap-1 sm:gap-4 px-1 sm:px-4 py-1 sm:py-2">
+          <TabsTrigger
+            value="performance"
+            className="text-xs sm:text-base px-1 sm:px-4 py-1 sm:py-2"
+          >
+            Desempenho
+          </TabsTrigger>
+          <TabsTrigger
+            value="checkpoints"
+            className="text-xs sm:text-base px-1 sm:px-4 py-1 sm:py-2"
+          >
+            CheckPoints
+          </TabsTrigger>
+          <TabsTrigger
+            value="globalsolution"
+            className="text-xs sm:text-base px-1 sm:px-4 py-1 sm:py-2"
+          >
+            Global Solution
+          </TabsTrigger>
+          <TabsTrigger
+            value="challengersprints"
+            className="text-xs sm:text-base px-1 sm:px-4 py-1 sm:py-2"
+          >
+            Challenge
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="performance">
           <PerformanceChart
