@@ -1,9 +1,33 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-export function AvaliacaoForm({ onSubmit, tipo }: { onSubmit: (e: React.FormEvent<HTMLFormElement>) => void, tipo: string }) {
+export function AvaliacaoForm({
+  onSubmit,
+  tipo,
+  disciplina,
+  setDisciplina,
+}: {
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  tipo: string;
+  disciplina: string;
+  setDisciplina: (value: string) => void;
+}) {
+  const [feedback, setFeedback] = useState("");
+  const [feedbackError, setFeedbackError] = useState("");
+
+  const handleFeedbackChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value.length > 500) {
+      setFeedbackError("O feedback deve ter no máximo 500 caracteres.");
+    } else {
+      setFeedbackError("");
+    }
+    setFeedback(value);
+  };
+
   return (
     <form onSubmit={onSubmit} className="space-y-4">
       <div className="flex space-x-4">
@@ -23,12 +47,18 @@ export function AvaliacaoForm({ onSubmit, tipo }: { onSubmit: (e: React.FormEven
         </div>
         <div className="flex-1">
           <Label htmlFor={`${tipo}Feedback`}>Feedback</Label>
-          <Input id={`${tipo}Feedback`} name="feedback" />
+          <Input id={`${tipo}Feedback`} name="feedback" value={feedback} onChange={handleFeedbackChange} maxLength={500} />
+          {feedbackError && <p className="text-red-500 text-sm mt-1">{feedbackError}</p>}
         </div>
       </div>
       <div className="flex-1">
         <Label htmlFor={`${tipo}Disciplina`}>Disciplina</Label>
-        <Select name="disciplina" required>
+        <Select
+          name="disciplina"
+          value={disciplina}
+          onValueChange={setDisciplina}
+          required
+        >
           <SelectTrigger>
             <SelectValue placeholder="Selecione uma disciplina" />
           </SelectTrigger>
@@ -43,7 +73,7 @@ export function AvaliacaoForm({ onSubmit, tipo }: { onSubmit: (e: React.FormEven
           </SelectContent>
         </Select>
       </div>
-      <Button type="submit">Adicionar {tipo}</Button>
+      <Button type="submit" disabled={feedback.length > 500}>Adicionar {tipo}</Button>
     </form>
   );
 }

@@ -36,6 +36,7 @@ export default function PerfilAluno() {
   const [aluno, setAluno] = useState<Aluno | null>(null);
   const [avaliacoes, setAvaliacoes] = useState<Avaliacao[]>([]);
   const [selectedDisciplina, setSelectedDisciplina] = useState<string>("todas");
+  const [newDisciplina, setNewDisciplina] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -96,9 +97,7 @@ export default function PerfilAluno() {
     const data = (form.elements.namedItem("data") as HTMLInputElement).value;
     const feedback = (form.elements.namedItem("feedback") as HTMLInputElement)
       .value;
-    const disciplina = (
-      form.elements.namedItem("disciplina") as HTMLInputElement
-    ).value;
+    const disciplina = newDisciplina;
 
     const newAvaliacao: Omit<Avaliacao, "$id" | "$createdAt" | "$updatedAt"> = {
       titulo,
@@ -115,6 +114,7 @@ export default function PerfilAluno() {
       if (createdAvaliacao) {
         setAvaliacoes([...avaliacoes, createdAvaliacao]);
         form.reset();
+        setNewDisciplina(""); // Limpa o campo de disciplina após o envio
       }
     }
   };
@@ -126,7 +126,9 @@ export default function PerfilAluno() {
   if (error || !aluno) {
     return (
       <div className="container mx-auto px-4 py-8 flex flex-col items-center justify-center h-screen">
-        <h1 className="text-3xl font-bold text-red-500 mb-4">Aluno não encontrado</h1>
+        <h1 className="text-3xl font-bold text-red-500 mb-4">
+          Aluno não encontrado
+        </h1>
         <p className="text-lg text-gray-700">
           Verifique se o RM está correto ou tente novamente mais tarde.
         </p>
@@ -189,6 +191,8 @@ export default function PerfilAluno() {
               <AvaliacaoForm
                 onSubmit={(e) => handleAddAvaliacao(e, "checkpoint")}
                 tipo="CheckPoint"
+                disciplina={newDisciplina}
+                setDisciplina={setNewDisciplina}
               />
             </CardContent>
           </Card>
@@ -204,6 +208,8 @@ export default function PerfilAluno() {
               <AvaliacaoForm
                 onSubmit={(e) => handleAddAvaliacao(e, "globalsolution")}
                 tipo="Global Solution"
+                disciplina={newDisciplina}
+                setDisciplina={setNewDisciplina}
               />
             </CardContent>
           </Card>
@@ -221,6 +227,8 @@ export default function PerfilAluno() {
               <AvaliacaoForm
                 onSubmit={(e) => handleAddAvaliacao(e, "challengersprint")}
                 tipo="Challenger Sprint"
+                disciplina={newDisciplina}
+                setDisciplina={setNewDisciplina}
               />
             </CardContent>
           </Card>
